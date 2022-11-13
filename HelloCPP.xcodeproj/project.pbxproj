@@ -8,9 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		ED5EE365291C3D66002E5036 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = ED5EE364291C3D66002E5036 /* main.cpp */; };
-		ED6592F7291C61B300216DD4 /* SDL2.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ED6592F6291C61B300216DD4 /* SDL2.framework */; };
-		ED9A3ACF291C62960083EDD2 /* SDL2 in Frameworks */ = {isa = PBXBuildFile; fileRef = ED9A3ACE291C62960083EDD2 /* SDL2 */; };
-		EDFA2724292034F600682633 /* GLUT.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EDFA2723292034F600682633 /* GLUT.framework */; };
+		EDA714C32920CBE20017417B /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EDA714C22920CBE20017417B /* OpenGL.framework */; };
+		EDA714C52920CC8E0017417B /* libglfw.3.3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = EDA714C42920CC8E0017417B /* libglfw.3.3.dylib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -29,7 +28,15 @@
 		ED5EE361291C3D66002E5036 /* HelloCPP */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = HelloCPP; sourceTree = BUILT_PRODUCTS_DIR; };
 		ED5EE364291C3D66002E5036 /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		ED6592F6291C61B300216DD4 /* SDL2.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SDL2.framework; path = ../../../../../Library/Frameworks/SDL2.framework; sourceTree = "<group>"; };
+		ED8C81642920C3EB00F77C78 /* old.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = old.cpp; sourceTree = "<group>"; };
+		ED8C81662920C7F100F77C78 /* SDL2 */ = {isa = PBXFileReference; lastKnownFileType = folder; name = SDL2; path = ../../../../opt/homebrew/include/SDL2; sourceTree = "<group>"; };
+		ED8C81672920C82400F77C78 /* include */ = {isa = PBXFileReference; lastKnownFileType = folder; name = include; path = ../../../../opt/homebrew/include; sourceTree = "<group>"; };
 		ED9A3ACE291C62960083EDD2 /* SDL2 */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = SDL2; path = ../../../../../Library/Frameworks/SDL2.framework/Versions/A/SDL2; sourceTree = "<group>"; };
+		EDA714C12920C8CB0017417B /* glad */ = {isa = PBXFileReference; lastKnownFileType = folder; name = glad; path = HelloCPP/glad; sourceTree = "<group>"; };
+		EDA714C22920CBE20017417B /* OpenGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGL.framework; path = System/Library/Frameworks/OpenGL.framework; sourceTree = SDKROOT; };
+		EDA714C42920CC8E0017417B /* libglfw.3.3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libglfw.3.3.dylib; path = ../../../../opt/homebrew/Cellar/glfw/3.3.8/lib/libglfw.3.3.dylib; sourceTree = "<group>"; };
+		EDA714C82920CDAB0017417B /* include */ = {isa = PBXFileReference; lastKnownFileType = folder; name = include; path = HelloCPP/glad/include; sourceTree = "<group>"; };
+		EDA714CA2920DF450017417B /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		EDFA2723292034F600682633 /* GLUT.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GLUT.framework; path = System/Library/Frameworks/GLUT.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
@@ -38,9 +45,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				EDFA2724292034F600682633 /* GLUT.framework in Frameworks */,
-				ED9A3ACF291C62960083EDD2 /* SDL2 in Frameworks */,
-				ED6592F7291C61B300216DD4 /* SDL2.framework in Frameworks */,
+				EDA714C52920CC8E0017417B /* libglfw.3.3.dylib in Frameworks */,
+				EDA714C32920CBE20017417B /* OpenGL.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -50,6 +56,7 @@
 		ED5EE358291C3D66002E5036 = {
 			isa = PBXGroup;
 			children = (
+				EDA714CA2920DF450017417B /* README.md */,
 				ED5EE363291C3D66002E5036 /* HelloCPP */,
 				ED5EE362291C3D66002E5036 /* Products */,
 				ED6592F5291C61B300216DD4 /* Frameworks */,
@@ -68,6 +75,7 @@
 			isa = PBXGroup;
 			children = (
 				ED5EE364291C3D66002E5036 /* main.cpp */,
+				ED8C81642920C3EB00F77C78 /* old.cpp */,
 			);
 			path = HelloCPP;
 			sourceTree = "<group>";
@@ -75,6 +83,12 @@
 		ED6592F5291C61B300216DD4 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				EDA714C82920CDAB0017417B /* include */,
+				EDA714C42920CC8E0017417B /* libglfw.3.3.dylib */,
+				EDA714C22920CBE20017417B /* OpenGL.framework */,
+				EDA714C12920C8CB0017417B /* glad */,
+				ED8C81672920C82400F77C78 /* include */,
+				ED8C81662920C7F100F77C78 /* SDL2 */,
 				EDFA2723292034F600682633 /* GLUT.framework */,
 				ED9A3ACE291C62960083EDD2 /* SDL2 */,
 				ED6592F6291C61B300216DD4 /* SDL2.framework */,
@@ -178,6 +192,7 @@
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGNING_ALLOWED = NO;
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -236,6 +251,7 @@
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGNING_ALLOWED = NO;
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
@@ -258,32 +274,40 @@
 		ED5EE369291C3D66002E5036 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_STYLE = Automatic;
+				CODE_SIGN_IDENTITY = "";
+				CODE_SIGN_STYLE = Manual;
+				DEVELOPMENT_TEAM = "";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(LOCAL_LIBRARY_DIR)/Frameworks",
 				);
+				HEADER_SEARCH_PATHS = /opt/homebrew/Cellar/glfw/3.3.8/include;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(LOCAL_LIBRARY_DIR)/Frameworks/SDL2.framework/Versions/A",
+					/opt/homebrew/Cellar/glfw/3.3.8/lib,
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 			};
 			name = Debug;
 		};
 		ED5EE36A291C3D66002E5036 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_STYLE = Automatic;
+				CODE_SIGN_IDENTITY = "";
+				CODE_SIGN_STYLE = Manual;
+				DEVELOPMENT_TEAM = "";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(LOCAL_LIBRARY_DIR)/Frameworks",
 				);
+				HEADER_SEARCH_PATHS = /opt/homebrew/Cellar/glfw/3.3.8/include;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(LOCAL_LIBRARY_DIR)/Frameworks/SDL2.framework/Versions/A",
+					/opt/homebrew/Cellar/glfw/3.3.8/lib,
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 			};
 			name = Release;
 		};
