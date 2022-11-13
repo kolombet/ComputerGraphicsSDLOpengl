@@ -37,6 +37,7 @@
 		EDA714C42920CC8E0017417B /* libglfw.3.3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libglfw.3.3.dylib; path = ../../../../opt/homebrew/Cellar/glfw/3.3.8/lib/libglfw.3.3.dylib; sourceTree = "<group>"; };
 		EDA714C82920CDAB0017417B /* include */ = {isa = PBXFileReference; lastKnownFileType = folder; name = include; path = HelloCPP/glad/include; sourceTree = "<group>"; };
 		EDA714CA2920DF450017417B /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		EDA714CB2920E8AC0017417B /* linmath */ = {isa = PBXFileReference; lastKnownFileType = folder; name = linmath; path = HelloCPP/linmath; sourceTree = "<group>"; };
 		EDFA2723292034F600682633 /* GLUT.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GLUT.framework; path = System/Library/Frameworks/GLUT.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
@@ -83,6 +84,7 @@
 		ED6592F5291C61B300216DD4 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				EDA714CB2920E8AC0017417B /* linmath */,
 				EDA714C82920CDAB0017417B /* include */,
 				EDA714C42920CC8E0017417B /* libglfw.3.3.dylib */,
 				EDA714C22920CBE20017417B /* OpenGL.framework */,
