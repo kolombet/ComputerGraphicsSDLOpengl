@@ -4,8 +4,11 @@
 #include <stdio.h>
 #include <iostream>
 #include <string.h>
+#include <assert.h>
 #include <GLFW/glfw3.h>
 #include "linmath/linmath.h"
+#include <stdarg.h>
+#define GL_LOG_FILE "gl.log"
 
 using namespace std;
 
@@ -15,9 +18,62 @@ float points[] = {
   -0.5f, -0.5f,  0.0f
 };
 
-void error_callback(int error, const char* description)
+bool restart_gl_log() {
+  FILE* file = fopen(GL_LOG_FILE, "w");
+  if(!file) {
+    fprintf(stderr,
+      "ERROR: could not open GL_LOG_FILE log file %s for writing\n",
+      GL_LOG_FILE);
+    return false;
+  }
+  time_t now = time(NULL);
+  char* date = ctime(&now);
+  fprintf(file, "GL_LOG_FILE log. Test. local time %s\n", date);
+  fclose(file);
+  return true;
+}
+
+bool gl_log(const char* message, ...) {
+  va_list argptr;
+  FILE* file = fopen(GL_LOG_FILE, "a");
+  if(!file) {
+    fprintf(
+      stderr,
+      "ERROR: could not open GL_LOG_FILE %s file for appending\n",
+      GL_LOG_FILE
+    );
+    return false;
+  }
+  va_start(argptr, message);
+  vfprintf(file, message, argptr);
+  va_end(argptr);
+  fclose(file);
+  return true;
+}
+
+bool gl_log_err(const char* message, ...) {
+  va_list argptr;
+  FILE* file = fopen(GL_LOG_FILE, "a");
+  if(!file) {
+    fprintf(stderr,
+      "ERROR: could not open GL_LOG_FILE %s file for appending\n",
+      GL_LOG_FILE);
+    return false;
+  }
+  va_start(argptr, message);
+  vfprintf(file, message, argptr);
+  va_end(argptr);
+  va_start(argptr, message);
+  vfprintf(stderr, message, argptr);
+  va_end(argptr);
+  fclose(file);
+  return true;
+}
+
+void glfw_error_callback(int error, const char* description)
 {
     printf("Error: %s\n", description);
+    gl_log_err("Error: %s\n", description);
 }
 
 static void key_callback(GLFWwindow* window, int key, int scancode, int action, int mods)
@@ -46,7 +102,10 @@ const char* fragment_shader =
 
 int main(void)
 {
-    glfwSetErrorCallback(error_callback);
+    assert(restart_gl_log());
+    gl_log("starting GLFW\n%s\n", glfwGetVersionString());
+    
+    glfwSetErrorCallback(glfw_error_callback);
     
     /* Initialize the library */
     if (!glfwInit())
@@ -58,9 +117,18 @@ int main(void)
     glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 2);
     glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
     glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
+    glfwWindowHint(GLFW_SAMPLES, 4);
+    
+    GLFWmonitor* mon = glfwGetPrimaryMonitor();
+    const GLFWvidmode* vmode = glfwGetVideoMode(mon);
+    
+    gl_log("resolution: ", static_cast<char>(vmode->width), " x ", static_cast<char>(vmode->height));
+    window = glfwCreateWindow(
+      vmode->width, vmode->height, "Extended GL Init", mon, NULL
+    );
     
     /* Create a windowed mode window and its OpenGL context */
-    window = glfwCreateWindow(640, 480, "Hello World", NULL, NULL);
+//    window = glfwCreateWindow(640, 480, "Hello World", NULL, NULL);
     if (!window)
     {
         glfwTerminate();
