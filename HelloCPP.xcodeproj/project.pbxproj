@@ -283,10 +283,10 @@
 					"$(inherited)",
 					"$(LOCAL_LIBRARY_DIR)/Frameworks",
 				);
-				HEADER_SEARCH_PATHS = /opt/homebrew/Cellar/glfw/3.3.8/include;
+				HEADER_SEARCH_PATHS = /usr/local/opt/glfw/include;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					/opt/homebrew/Cellar/glfw/3.3.8/lib,
+					/usr/local/opt/glfw/lib,
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -303,10 +303,10 @@
 					"$(inherited)",
 					"$(LOCAL_LIBRARY_DIR)/Frameworks",
 				);
-				HEADER_SEARCH_PATHS = /opt/homebrew/Cellar/glfw/3.3.8/include;
+				HEADER_SEARCH_PATHS = /usr/local/opt/glfw/include;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					/opt/homebrew/Cellar/glfw/3.3.8/lib,
+					/usr/local/opt/glfw/lib,
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
