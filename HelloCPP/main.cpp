@@ -82,13 +82,85 @@ static void key_callback(GLFWwindow* window, int key, int scancode, int action, 
         glfwSetWindowShouldClose(window, GLFW_TRUE);
 }
 
+void log_gl_params() {
+  GLenum params[] = {
+    GL_MAX_COMBINED_TEXTURE_IMAGE_UNITS,
+    GL_MAX_CUBE_MAP_TEXTURE_SIZE,
+    GL_MAX_DRAW_BUFFERS,
+    GL_MAX_FRAGMENT_UNIFORM_COMPONENTS,
+    GL_MAX_TEXTURE_IMAGE_UNITS,
+    GL_MAX_TEXTURE_SIZE,
+    GL_MAX_VARYING_FLOATS,
+    GL_MAX_VERTEX_ATTRIBS,
+    GL_MAX_VERTEX_TEXTURE_IMAGE_UNITS,
+    GL_MAX_VERTEX_UNIFORM_COMPONENTS,
+    GL_MAX_VIEWPORT_DIMS,
+    GL_STEREO,
+  };
+  const char* names[] = {
+    "GL_MAX_COMBINED_TEXTURE_IMAGE_UNITS",
+    "GL_MAX_CUBE_MAP_TEXTURE_SIZE",
+    "GL_MAX_DRAW_BUFFERS",
+    "GL_MAX_FRAGMENT_UNIFORM_COMPONENTS",
+    "GL_MAX_TEXTURE_IMAGE_UNITS",
+    "GL_MAX_TEXTURE_SIZE",
+    "GL_MAX_VARYING_FLOATS",
+    "GL_MAX_VERTEX_ATTRIBS",
+    "GL_MAX_VERTEX_TEXTURE_IMAGE_UNITS",
+    "GL_MAX_VERTEX_UNIFORM_COMPONENTS",
+    "GL_MAX_VIEWPORT_DIMS",
+    "GL_STEREO",
+  };
+  gl_log("GL Context Params:\n");
+  // integers - only works if the order is 0-10 integer return types
+  for (int i = 0; i < 10; i++) {
+    int v = 0;
+    glGetIntegerv(params[i], &v);
+    gl_log("%s %i\n", names[i], v);
+  }
+  // others
+  int v[2];
+  v[0] = v[1] = 0;
+  glGetIntegerv(params[10], v);
+  gl_log("%s %i %i\n", names[10], v[0], v[1]);
+  unsigned char s = 0;
+  glGetBooleanv(params[11], &s);
+  gl_log("%s %u\n", names[11], (unsigned int)s);
+  gl_log("-----------------------------\n");
+}
+
+int g_gl_width = 640;
+int g_gl_height = 480;
+void glfw_window_size_callback(GLFWwindow* window, int width, int height) {
+  g_gl_width = width;
+  g_gl_height = height;
+  
+  /* update any perspective matrices used here */
+}
+
+void _update_fps_counter(GLFWwindow* window) {
+  static double previous_seconds = glfwGetTime();
+  static int frame_count;
+  double current_seconds = glfwGetTime();
+  double elapsed_seconds = current_seconds - previous_seconds;
+  if (elapsed_seconds > 0.25) {
+    previous_seconds = current_seconds;
+    double fps = (double)frame_count / elapsed_seconds;
+    char tmp[128];
+    sprintf(tmp, "opengl @ fps: %.2f width:%d height:%d", fps, g_gl_width, g_gl_height);
+    glfwSetWindowTitle(window, tmp);
+    frame_count = 0;
+  }
+  frame_count++;
+}
+
 GLFWwindow* window;
 GLuint vertex_buffer, program;
 GLint mvp_location, vpos_location, vcol_location;
 
 const char* vertex_shader =
 "#version 400\n"
-"in vec3 vp;"
+"in ve c3 vp;"
 "void main() {"
 "  gl_Position = vec4(vp, 1.0);"
 "}";
@@ -121,14 +193,17 @@ int main(void)
     
     GLFWmonitor* mon = glfwGetPrimaryMonitor();
     const GLFWvidmode* vmode = glfwGetVideoMode(mon);
+//    g_gl_width = vmode->width;
+//    g_gl_height = vmode->height;
     
     gl_log("resolution: ", static_cast<char>(vmode->width), " x ", static_cast<char>(vmode->height));
+    
     window = glfwCreateWindow(
-      vmode->width, vmode->height, "Extended GL Init", mon, NULL
+        g_gl_width, g_gl_height, "Extended GL Init", NULL, NULL
     );
     
-    /* Create a windowed mode window and its OpenGL context */
-//    window = glfwCreateWindow(640, 480, "Hello World", NULL, NULL);
+    /* Create a fullscreen mode window and its OpenGL context */
+//    window = glfwCreateWindow(640, 480, "Hello World", mon, NULL);
     if (!window)
     {
         glfwTerminate();
@@ -149,6 +224,7 @@ int main(void)
     const GLubyte* version = glGetString(GL_VERSION); // version as a string
     printf("Renderer: %s\n", renderer);
     printf("OpenGL version supported %s\n", version);
+    log_gl_params();
     
     // tell GL to only draw onto a pixel if the shape is closer to the viewer
 //    glEnable(GL_DEPTH_TEST); // enable depth-testing
@@ -180,16 +256,17 @@ int main(void)
     
     while (!glfwWindowShouldClose(window))
     {
+        _update_fps_counter(window);
         // wipe the drawing surface clear
-      glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-      glUseProgram(shader_programme);
-      glBindVertexArray(vao);
-      // draw points 0-3 from the currently bound VAO with current in-use shader
-      glDrawArrays(GL_TRIANGLES, 0, 3);
-      // update other events like input handling
-      glfwPollEvents();
-      // put the stuff we've been drawing onto the display
-      glfwSwapBuffers(window);
+        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+        glUseProgram(shader_programme);
+        glBindVertexArray(vao);
+        // draw points 0-3 from the currently bound VAO with current in-use shader
+        glDrawArrays(GL_TRIANGLES, 0, 3);
+        // update other events like input handling
+        glfwPollEvents();
+        // put the stuff we've been drawing onto the display
+        glfwSwapBuffers(window);
         
 //        double time = glfwGetTime();
 //        cout<<to_string(time)<<endl;

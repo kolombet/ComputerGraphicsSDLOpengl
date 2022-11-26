@@ -18,3 +18,4 @@ clang++ main.cpp ./glad/src/glad.c $(sdl2-config --cflags --libs) -I./glad/inclu
 clang++ main.cpp -o game ./glad/src/glad.c $(sdl2-config --cflags --libs) -I./glad/include -F/Library/Frameworks -framework SDL2
 
 # GLFW
+g++ -o demo main.cpp -lglfw -lGLEW -lGL
